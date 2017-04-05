@@ -1,4 +1,6 @@
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,10 +16,102 @@ public class NewServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         Lager l = new Lager();
-        request.setAttribute("map", l.makeMap());
-        
-        request.getRequestDispatcher("index.jsp").include(request, response);
-        
+
+        /*request.setAttribute("map", l.makeMap());*/
+        String alttTabel = toTabelaltt();
+        String albsfTabel = toTabelalbsf();
+        String altTabel = toTabelalt();
+        String altpTabel = toTabelaltp();
+        String albstTabel = toTabelalbst();
+        request.setAttribute("alttTabel", alttTabel);
+        request.setAttribute("albsfTabel", albsfTabel);
+        request.setAttribute("altTabel", altTabel);
+        request.setAttribute("altpTabel", altpTabel);
+        request.setAttribute("albstTabel", albstTabel);
+
+        request.getRequestDispatcher("access.jsp").include(request, response);
+
+    }
+
+    public static String toTabelaltt() {
+        String fill = "<table><tr><th>name</th><th>length</th><th>amount</th><th>unit</th><th>description</th>";
+        Lager l = new Lager();
+        l.alttData();
+        ArrayList<FTræogTagplader> arr = l.altt;
+        fill += "<tr>";
+        for (int i = 0; i < arr.size(); i++) {
+            fill += "<td>" + arr.get(i).getName() + "</td>";
+            fill += "<td>" + arr.get(i).getLength() + "</td>";
+            fill += "<td>" + arr.get(i).getAmount() + "</td>";
+            fill += "<td>" + arr.get(i).getUnit() + "</td>";
+            fill += "<td>" + arr.get(i).getDescription() + "</td></tr>";
+        }
+        fill += "</table>";
+        return fill;
+    }
+
+    public static String toTabelalbsf() {
+        String fill = "<table><tr><th>name</th><th>amount</th><th>unit</th><th>description</th>";
+        Lager l = new Lager();
+        l.alttData();
+        ArrayList<FBeslagogSkruer> arr = l.albsf;
+        fill += "<tr>";
+        for (int i = 0; i < arr.size(); i++) {
+            fill += "<td>" + arr.get(i).getName() + "</td>";
+            fill += "<td>" + arr.get(i).getAmount() + "</td>";
+            fill += "<td>" + arr.get(i).getUnit() + "</td>";
+            fill += "<td>" + arr.get(i).getDescription() + "</td></tr>";
+        }
+        fill += "</table>";
+        return fill;
+    }
+
+    public static String toTabelalt() {
+        String fill = "<table><tr><th>name</th><th>length</th><th>amount</th><th>unit</th><th>description</th>";
+        Lager l = new Lager();
+        l.alttData();
+        ArrayList<TTræ> arr = l.alt;
+        fill += "<tr>";
+        for (int i = 0; i < arr.size(); i++) {
+            fill += "<td>" + arr.get(i).getName() + "</td>";
+            fill += "<td>" + arr.get(i).getLength() + "</td>";
+            fill += "<td>" + arr.get(i).getAmount() + "</td>";
+            fill += "<td>" + arr.get(i).getUnit() + "</td>";
+            fill += "<td>" + arr.get(i).getDescription() + "</td></tr>";
+        }
+        fill += "</table>";
+        return fill;
+    }
+
+    public static String toTabelaltp() {
+        String fill = "<table><tr><th>name</th><th>amount</th><th>unit</th><th>description</th>";
+        Lager l = new Lager();
+        l.alttData();
+        ArrayList<TTagpakken> arr = l.altp;
+        fill += "<tr>";
+        for (int i = 0; i < arr.size(); i++) {
+            fill += "<td>" + arr.get(i).getName() + "</td>";
+            fill += "<td>" + arr.get(i).getAmount() + "</td>";
+            fill += "<td>" + arr.get(i).getUnit() + "</td>";
+            fill += "<td>" + arr.get(i).getDescription() + "</td></tr>";
+        }
+        fill += "</table>";
+        return fill;
+    }
+    public static String toTabelalbst(){
+        String fill = "<table><tr><th>name</th><th>amount</th><th>unit</th><th>description</th>";
+        Lager l = new Lager();
+        l.alttData();
+        ArrayList<TBeslagogSkruer> arr = l.albst;
+        fill += "<tr>";
+        for (int i = 0; i < arr.size(); i++) {
+            fill += "<td>" + arr.get(i).getName() + "</td>";
+            fill += "<td>" + arr.get(i).getAmount() + "</td>";
+            fill += "<td>" + arr.get(i).getUnit() + "</td>";
+            fill += "<td>" + arr.get(i).getDescription() + "</td></tr>";
+        }
+        fill += "</table>";
+        return fill;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
